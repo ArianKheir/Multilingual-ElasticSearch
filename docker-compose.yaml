@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.3
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=7+c8tTe5M3jKHk*UL1zd
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=false
+    ports:
+      - 9200:9200
+    healthcheck:
+      test: ["CMD", "curl", "-u", "elastic:7+c8tTe5M3jKHk*UL1zd", "http://localhost:9200", "--insecure"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+  #    networks:
+  #      - esnet
+
+  multilingual-search:
+    build: ./multilingual-search
+    container_name: multilingual-search
+    environment:
+      - SPRING_ELASTICSEARCH_URIS=http://elasticsearch:9200
+      - SPRING_ELASTICSEARCH_USERNAME=elastic
+      - SPRING_ELASTICSEARCH_PASSWORD=7+c8tTe5M3jKHk*UL1zd
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+#    depends_on:
+#      elasticsearch:
+#        condition: service_healthy
+#    networks:
+#      - esnet
+
+#networks:
+#  esnet:
+#    driver: bridge

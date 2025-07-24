@@ -1,0 +1,34 @@
+# Ignore build output
+/target/
+/build/
+
+# Maven
+/logs/
+/*.log
+!src/main/resources/
+
+# Ignore IntelliJ IDEA project files
+*.iml
+.idea/
+*.iws
+*.ipr
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore test output
+/test-output/
+
+# Ignore compiled classes
+*.class
+
+# Ignore temporary files
+*.swp
+*.tmp
+*.bak
+
+# Avoid uploading environment files
+.env
+application.properties
+application.yml
